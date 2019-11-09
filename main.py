@@ -1,6 +1,5 @@
 import requests
 
-
 SESSION_ID = "k18axp5n9GM8sguSmqX7I4KYTQT5fLsP.m1-prod-api25"
 
 
@@ -78,10 +77,11 @@ def enrich_stocks_with_fundamentals(stocks, sessionId=SESSION_ID):
     return stocks
 
 
-if __name__ == '__main__':
+def main():
     stocks_count = get_stocks_count()
     stocks = enumerate_stocks(count=stocks_count)
     stocks = enrich_stocks_with_fundamentals(stocks, sessionId=SESSION_ID)
+    return stocks
 
     # s1 = list(filter(
     #     lambda s:(s['price'] < 40) and (s['currency'] == 'USD') and (s['dividend_yield'] and s['dividend_yield'] > 4),
