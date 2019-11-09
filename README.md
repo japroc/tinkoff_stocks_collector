@@ -1,6 +1,13 @@
 # tinkoff_stocks_collector
 Collects info about available stocks at Tinkoff.Invest
 
+# Stock dump
+Добавил в папку `data` дамп на 09.11.2019.
+Формат json. Через любой [JSON Beautifier](https://jsonformatter.curiousconcept.com/) можно сделать более читабельным.
+
+# Setup
+`pip install -r requirements.txt`
+
 # How To Use
 1. Залогиниться на https://www.tinkoff.ru/invest/.
 2. Get cookie `psid`. Значение выглядит примерно так: `jqqp8akVZMzsaER83vR5jDc3y9g5NHtt.m1-prod-api46`.
