@@ -1,7 +1,11 @@
 import requests
+import progressbar
+import re
+import datetime
+import json
 
 
-SESSION_ID = "k18axp5n9GM8sguSmqX7I4KYTQT5fLsP.m1-prod-api25"
+SESSION_ID = "5YqXezxr6tdlhBvlGEN8ks0DtV0Rl9lm.m1-prod-api21"
 
 
 def get_stocks_count():
@@ -72,10 +76,22 @@ def get_fundamentals_for_ticker(ticker="ACN", sessionId=SESSION_ID):
 
 
 def enrich_stocks_with_fundamentals(stocks, sessionId=SESSION_ID):
-    for stock in stocks:
+
+    for i in progressbar.progressbar(range(len(stocks)), redirect_stdout=True):
+
+        stock = stocks[i]
         fundamentals = get_fundamentals_for_ticker(ticker=stock['ticker'], sessionId=sessionId)
         stock.update(fundamentals)
+
     return stocks
+
+
+def dump_json_file(stocks):
+    s = sorted(stocks, key=lambda s:s['dividend_yield'] or 0, reverse=True)
+    fname = 'stocks_{}.json'.format(re.sub(r"[\s\-\:]", "_", str(datetime.datetime.now())[:19]))
+    f = open(fname, 'w')
+    json.dump(s, f)
+    f.close()
 
 
 def main():
