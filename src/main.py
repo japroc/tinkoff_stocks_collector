@@ -5,7 +5,7 @@ import datetime
 import json
 
 
-SESSION_ID = "5YqXezxr6tdlhBvlGEN8ks0DtV0Rl9lm.m1-prod-api21"
+SESSION_ID = "JsTJWJnKMiyeSk6PLrYBWRjDf5SkWs0R.ds-prod-api03"
 
 
 def get_stocks_count():
@@ -105,3 +105,13 @@ def main():
     #     stocks
     # ))
     # s2 = sorted(s1, key=lambda s:s['market_cap'] or 0, reverse=True)
+
+    ## Get Onon RUB stocks
+    s = stocks
+    s = list(filter(lambda x: x["currency"] != "RUB", s))
+    # s = list(filter(lambda x: x["price"] < 200, s))
+    s = list(filter(lambda x: x["pe"] is not None and x["pe"] < 15, s))
+    s = list(filter(lambda x: x["dividend_yield"] > 10, s))
+    s = list(filter(lambda x: x["dividend_yield"] < 20, s))
+    s = sorted(s, key=lambda x:x["market_cap"] or 0, reverse=True)
+
